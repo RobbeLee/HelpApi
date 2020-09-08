@@ -9,7 +9,13 @@ namespace HelpApi.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        private readonly MockHelpApiRepo _repository = new MockHelpApiRepo();
+        private readonly IHelpApiRepo _repository;
+
+        public CommandsController(IHelpApiRepo repository)
+        {
+            _repository = repository;
+        }
+        //private readonly MockHelpApiRepo _repository = new MockHelpApiRepo();
         //GET api/commands
         [HttpGet]
         public ActionResult <IEnumerable<Command>> GetAllCommands()
@@ -24,7 +30,7 @@ namespace HelpApi.Controllers
         public ActionResult <Command> GetCommandById(int id)
         {
             var commandItem = _repository.GetCommandById(id);
-            return Ok(CommandItem);
+            return Ok(commandItem);
         }
     }
 }
